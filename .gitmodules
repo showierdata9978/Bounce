@@ -1,0 +1,2 @@
+[submodule "raylib"]
+	url = https://github.com/raysan5/raylib.git
