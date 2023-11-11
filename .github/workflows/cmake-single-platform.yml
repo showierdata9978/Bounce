@@ -21,14 +21,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3   
-    - uses: msys2/setup-msys2@v2
-      with:
-        update: true
-        install: >-
-          mingw-w64-x86_64
 
-    - name: Put MSYS2_MinGW64 on PATH
-      run: echo "D:/a/_temp/msys64/mingw64/bin" >> $GITHUB_PATH
     - name: Install Raylib
       run: |
           git clone https://github.com/raysan5/raylib.git raylib
@@ -64,7 +57,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          mingw-w64-x86_64-ninja
+
+    - name: Put MSYS2_MinGW64 on PATH
+      run: echo "D:/a/_temp/msys64/mingw64/bin" >> $GITHUB_PATH
+
     - name: Install Raylib
       run: |
           sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev mingw-w64
@@ -72,7 +75,7 @@ jobs:
 
           cd raylib/
           mkdir build && cd build
-          cmake -DBUILD_SHARED_LIBS=ON .. -G "MinGW Makefiles"
+          cmake -DBUILD_SHARED_LIBS=ON .. -GNinja
           make
           sudo make install
           
@@ -85,7 +88,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: | 
-        cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ -S . -B ./build -G "MinGW Makefiles"     
+        cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ -S . -B ./build -GNinja  
         cd build
         make
 
