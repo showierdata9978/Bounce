@@ -21,13 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3   
-    
-    - name: setup
-      - uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          install: >-
-            mingw-w64-x86_64
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          mingw-w64-x86_64
 
     - name: Put MSYS2_MinGW64 on PATH
       run: echo "D:/a/_temp/msys64/mingw64/bin" >> $GITHUB_PATH
