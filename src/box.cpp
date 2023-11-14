@@ -4,6 +4,7 @@
 
 #include "window.hpp"
 
+
 template <typename T>
 T devflr(T x, T y)
 {
@@ -11,8 +12,7 @@ T devflr(T x, T y)
 }
 
 
-Box::Box(int x, int y, WindowManager *window)
-    : x(x), y(y)
+Box::Box(int x, int y)
 {
     this->x = devflr(x, 10);
     this->y = devflr(y, 10);
@@ -20,19 +20,10 @@ Box::Box(int x, int y, WindowManager *window)
     this->x_dir = 1;
     this->y_dir = 1;
 
-    this->window = window;
 };
 
-Box::Box()
-{
-    this->x = 0;
-    this->y = 0;
 
-    this->x_dir = 1;
-    this->y_dir = 1;
-}
-
-void Box::tick()
+void Box::tick(WindowManager *window)
 {
     // move the box
 
@@ -54,7 +45,7 @@ void Box::tick()
     y += ((y_dir * BOX_SIZE) * speed * frameTime);
 }
 
-void Box::draw()
+void Box::draw(WindowManager *window)
 {
 
     // calculate the size based on the box's position

@@ -5,8 +5,10 @@
 
 class WindowManager;
 
-#define BOX_SIZE 50.0f
-#define OOB_SIZE 1
+
+
+static constexpr float BOX_SIZE = 50.0f;
+
 
 template <typename T>
 T devflr(T x, T y);
@@ -20,15 +22,13 @@ private:
     int x_dir;
     int y_dir;
 
-    WindowManager *window;
-
 public:
 
-    Box(int x, int y, WindowManager *window);
-    Box();
+    Box(int x, int y);
+    Box() = delete;
 
-    void tick();
-    void draw();
+    void tick(WindowManager *window);
+    void draw(WindowManager *window);
 };
 
 #endif // BOX_HPP

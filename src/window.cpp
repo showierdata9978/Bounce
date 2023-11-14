@@ -10,7 +10,6 @@
 WindowManager::WindowManager(int width, int height, const char *title, int boxCount)
     : width(width), height(height)
 {
-    this->boxes = std::vector<Box>();
     this->boxCount = boxCount;
     this->width = width;
     this->height = height;
@@ -22,7 +21,7 @@ WindowManager::WindowManager(int width, int height, const char *title, int boxCo
 
     for (int i = 0; i < boxCount; i++)
     {
-        this->boxes.push_back(Box(rand() % width, rand() % height, this) );
+        this->boxes.push_back(Box(rand() % width, rand() % height) );
     }
 }
 
@@ -35,7 +34,7 @@ void WindowManager::update()
 
     for (auto &box : this->boxes)
     {
-        box.tick();
+        box.tick(this);
     }
 }
 
@@ -49,7 +48,7 @@ void WindowManager::draw()
 
     for (auto &box : this->boxes)
     {
-        box.draw();
+        box.draw(this);
     }
 
     // draw a series of lines in a grid, going across the screen
